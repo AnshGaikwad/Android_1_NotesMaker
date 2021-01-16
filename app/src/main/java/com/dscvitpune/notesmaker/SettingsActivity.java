@@ -64,7 +64,6 @@ public class SettingsActivity extends AppCompatActivity {
             assert localStorage != null;
             localStorage.setEnabled(preferences.getBoolean("CloudUpload", false));
 
-
             preferences.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
