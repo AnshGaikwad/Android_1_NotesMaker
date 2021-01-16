@@ -4,7 +4,7 @@ A notes maker application to help students to create short notes by cutting down
 # Installation
 Run the command in your terminal
 ```
-git clone https://github.com/AnshGaikwad/Android_1_NotesMaker.git
+git clone https://github.com/AnshGaikwad/Notes-Maker.git
 ```
 Or you can just clone it through [android studio](https://developer.android.com/studio) which will be much easier.
 Note: Always run te application on a real device rather running it on a emulator
