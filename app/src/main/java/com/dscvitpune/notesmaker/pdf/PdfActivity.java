@@ -20,6 +20,7 @@ public class PdfActivity extends AppCompatActivity {
 
         // get intent here
         String pdfpath = getIntent().getStringExtra("PdfPath");
+        assert pdfpath != null;
         File pdfFile = new File(pdfpath);
         pdfView.fromFile(pdfFile)
                 .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default

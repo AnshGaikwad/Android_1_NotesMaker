@@ -114,7 +114,6 @@ public class PreviewActivity extends AppCompatActivity {
             insertItem(0, text);
         }
 
-
         buttonAdd = findViewById(R.id.btnAddPara);
         buttonSaveToPDF = findViewById(R.id.btnSavePDF);
         editTextPDFName = findViewById(R.id.prevEditTextTitle);
@@ -124,18 +123,9 @@ public class PreviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CropImage.startPickImageActivity(PreviewActivity.this);
-                /*if (imgUri != null) {
-                    try {
-                        InputStream inputStream = getContentResolver().openInputStream(imgUri);
-                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        getTextFromBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-
-                }*/
             }
         });
+
         buttonSaveToPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +163,7 @@ public class PreviewActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 final File file = pdf.makeDocument(temp);
 
                 if (mUser != null) {
@@ -308,9 +299,6 @@ public class PreviewActivity extends AppCompatActivity {
 
     public void createPreviewDataList() {
         mPreviewDataList = new ArrayList<>();
-        /*mPreviewDataList.add(new PreviewData("Great job!"));
-        mPreviewDataList.add(new PreviewData("Amazing job!"));
-        mPreviewDataList.add(new PreviewData("Amazing Work!"));*/
     }
 
     public void buildRecyclerView() {
@@ -346,11 +334,8 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
     private String summariseText(String text) {
-
         final Ref.ObjectRef summary = new Ref.ObjectRef();
-
         summary.element = Text2Summary.Companion.summarize(text, 0.4F);
-
         return (String) summary.element;
     }
 

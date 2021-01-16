@@ -29,10 +29,9 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegisterActivity extends AppCompatActivity {
-    public static final int PIC_CROP = 1;
     private static final int SELECT_PICTURE = 0;
     private static final String TAG = "Register";
-    EditText rCodeEnter, rEmailId, rPassword, rName;
+    EditText rEmailId, rPassword, rName;
     CircleImageView profilePicture;
     Uri pfp; //profile Picture
     FirebaseAuth fAuth;
@@ -84,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             final FirebaseUser user = fAuth.getCurrentUser();
+                            assert user != null;
                             user.sendEmailVerification()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                               @Override
@@ -114,7 +114,6 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
-//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
     }

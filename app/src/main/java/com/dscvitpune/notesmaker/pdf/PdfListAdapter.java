@@ -1,5 +1,6 @@
 package com.dscvitpune.notesmaker.pdf;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,18 +29,18 @@ import java.util.TimeZone;
 
 public class PdfListAdapter extends RecyclerView.Adapter<PdfListAdapter.PdfViewHolder> implements Filterable {
 
-    List<File> moviesList;
-    List<File> moviesListAll;
+    List<File> pdfList;
+    List<File> pdfListAll;
     Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<File> filteredList = new ArrayList<>();
             if (constraint.toString().isEmpty()) {
-                filteredList.addAll(moviesListAll);
+                filteredList.addAll(pdfListAll);
             } else {
-                for (File movie : moviesListAll) {
-                    if (movie.getName().toLowerCase().contains((constraint.toString().toLowerCase()))) {
-                        filteredList.add(movie);
+                for (File pdf : pdfListAll) {
+                    if (pdf.getName().toLowerCase().contains((constraint.toString().toLowerCase()))) {
+                        filteredList.add(pdf);
                     }
                 }
             }
@@ -50,7 +51,7 @@ public class PdfListAdapter extends RecyclerView.Adapter<PdfListAdapter.PdfViewH
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            moviesList = (List<File>) results.values;
+            pdfList = (List<File>) results.values;
             notifyDataSetChanged();
         }
     };
@@ -63,10 +64,8 @@ public class PdfListAdapter extends RecyclerView.Adapter<PdfListAdapter.PdfViewH
         Arrays.sort(PDFs);
         this.PDFs = PDFs;
         this.context = context;
-
-        this.moviesList = Arrays.asList(PDFs);
-        this.moviesListAll = new ArrayList<>(moviesList);
-
+        this.pdfList = Arrays.asList(PDFs);
+        this.pdfListAll = new ArrayList<>(pdfList);
     }
 
     @Override
@@ -85,15 +84,15 @@ public class PdfListAdapter extends RecyclerView.Adapter<PdfListAdapter.PdfViewH
         return new PdfViewHolder(view);
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void onBindViewHolder(@NonNull PdfViewHolder holder, int position) {
-        Date date = new Date(moviesList.get(position).lastModified());
+        Date date = new Date(pdfList.get(position).lastModified());
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy  HH:mm:ss");
         formatter.setTimeZone(TimeZone.getDefault());
         holder.pdfDate.setText(formatter.format(date));
-        holder.pdfSize.setText(getSize(moviesList.get(position).length()));
-        holder.pdfName.setText(moviesList.get(position).getName());
-
+        holder.pdfSize.setText(getSize(pdfList.get(position).length()));
+        holder.pdfName.setText(pdfList.get(position).getName());
     }
 
     private String getSize(long sizeBytes) {
@@ -111,7 +110,7 @@ public class PdfListAdapter extends RecyclerView.Adapter<PdfListAdapter.PdfViewH
 
     @Override
     public int getItemCount() {
-        return moviesList.size();
+        return pdfList.size();
     }
 
     public interface OnItemClickListener {
@@ -160,6 +159,7 @@ public class PdfListAdapter extends RecyclerView.Adapter<PdfListAdapter.PdfViewH
             popupMenu.show();
         }
 
+        @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {

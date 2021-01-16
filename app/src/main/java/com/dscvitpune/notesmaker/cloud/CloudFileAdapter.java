@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 class CloudFileAdapter extends RecyclerView.Adapter<CloudFileAdapter.ViewHolder> implements Filterable {
+
     private final Context mContext;
     private List<StorageReference> mFilteredList;
     private final List<StorageReference> mList;
@@ -45,9 +46,9 @@ class CloudFileAdapter extends RecyclerView.Adapter<CloudFileAdapter.ViewHolder>
             if (constraint.toString().isEmpty()) {
                 filteredList.addAll(mList);
             } else {
-                for (StorageReference movie : mList) {
-                    if (movie.getName().toLowerCase().contains((constraint.toString().toLowerCase()))) {
-                        filteredList.add(movie);
+                for (StorageReference pdf : mList) {
+                    if (pdf.getName().toLowerCase().contains((constraint.toString().toLowerCase()))) {
+                        filteredList.add(pdf);
                     }
                 }
             }

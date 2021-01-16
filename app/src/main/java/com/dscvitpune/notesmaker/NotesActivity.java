@@ -1,6 +1,7 @@
 package com.dscvitpune.notesmaker;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -69,10 +70,7 @@ import kotlin.jvm.internal.Ref.ObjectRef;
 
 public class NotesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    static final int REQUEST_IMAGE_CAPTURE = 2;
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
-    private static final int REQUEST_CODE_SELECT_IMAGE = 1;
-    private static final int REQUEST_CODE_SELECT_DOC = 10;
     public static FirebaseAuth mAuth;
     public static StorageReference pdfStorage;
     ImageView pfp; //Profile Photo
@@ -86,7 +84,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
     FirebaseStorage storage;
     StorageReference userStorage;
     private DrawerLayout drawer;
-    private AppBarConfiguration mAppBarConfiguration;
     private Uri imgUri;
 
     @Override
@@ -95,11 +92,11 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
         super.onStart();
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void checkAuthentication() {
         Menu menu = navigationView.getMenu();
 
         MenuItem login = menu.findItem(R.id.nav_logout);
-
         FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
         if (mFirebaseUser == null) {
             login.setTitle("Log In");
@@ -119,7 +116,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
         mUser = mAuth.getCurrentUser();
 
         checkPermission();
-
 
         if (mUser != null) {
             storage = FirebaseStorage.getInstance();
@@ -165,16 +161,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
                 }
             }
         });
-
-//        FloatingActionButton docFab = findViewById(R.id.fab_doc);
-//        docFab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent myFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
-//                myFileIntent.setType("*/*");
-//                startActivityForResult(myFileIntent, REQUEST_CODE_SELECT_DOC);
-//            }
-//        });
     }
 
     private boolean checkPermission() {
@@ -196,9 +182,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
 
         if (mUser.getPhotoUrl() != null) {
             pfp.setImageURI(mUser.getPhotoUrl());
-//            Glide.with(this)
-//                    .load(mUser.getPhotoUrl())
-//                    .into(pfp);
         }
     }
 
@@ -239,7 +222,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
             File directory = new File(path);
             File[] allFiles = directory.listFiles();
 
-
             allPdfList = getPDFs(allFiles);
             pdfListAdapter = new PdfListAdapter(NotesActivity.this, allPdfList);
             linearLayoutManager = new LinearLayoutManager(this);
@@ -251,7 +233,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
                     // passing current pdf from here
                     String pdfpath = allPdfList[position].getPath();
 
-
                     Log.d("chk", pdfpath);
 
                     intent.putExtra("PdfPath", pdfpath);
@@ -261,6 +242,7 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
 
             PDFList.setLayoutManager(linearLayoutManager);
             PDFList.setAdapter(pdfListAdapter);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -296,14 +278,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
             }
         }
         return PDFs;
-    }
-    //private File[] searchPhd (File[] allFiles, )
-
-    private void selectImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
-        }
     }
 
     @Override
@@ -342,7 +316,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
                 Toast.makeText(this, "Image captured successfully !", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     private void startCrop(Uri imageUri) {
@@ -350,7 +323,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
     }
 
     private void getTextFromBitmap(Bitmap imageBitmap) {
-        //Enter your code from here Varun
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
         FirebaseVisionTextDetector textDetector = FirebaseVision.getInstance().getVisionTextDetector();
         textDetector.detectInImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
@@ -377,58 +349,6 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
                 text += block.getText() + "\n";
             }
 
-            // previewText(text);
-            //  Log.d("chk", text);
-            //Use the text from here aditya
-
-            // Dialog box
-            // Initializing a dialog box
-            /*final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(NotesActivity.this);
-            View mView = getLayoutInflater().inflate(R.layout.dialog, null);
-
-            // declaring edit text\
-            final EditText namePdf = mView.findViewById(R.id.name_note);
-            final EditText editText = mView.findViewById(R.id.edit_text);
-            final Button button = mView.findViewById(R.id.button);
-            final Button button2 = mView.findViewById(R.id.button2);
-            // setting view
-            builder.setView(mView);
-//
-//            // prevents off screen touches
-            builder.setCancelable(false);
-
-            final String copiedText = text;
-            editText.setText(copiedText);
-
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    String finalText = summarizeText(copiedText);
-                    editText.setText(finalText);
-                }
-            });
-
-            button2.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    editText.setText(copiedText);
-                }
-            });
-
-            builder.setPositiveButton("Save as PDF", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    String finalText = editText.getText().toString();
-                    String nameNote = namePdf.getText().toString();
-                    saveToPDF(finalText, nameNote);
-
-                }
-            });
-
-            // setting neg btn
-            builder.setNegativeButton("Discard", null);
-
-            //show
-            builder.show();*/
-
             Intent previewActivity = new Intent(NotesActivity.this, PreviewActivity.class);
             previewActivity.putExtra("Text", text);
             startActivity(previewActivity);
@@ -436,61 +356,7 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
         }
     }
 
-    private void saveToPDF(String text, String name) throws IOException {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-
-            if (text.isEmpty()) {
-                Toast.makeText(this, "Nothing to save, Text is empty", Toast.LENGTH_SHORT).show();
-            } else {
-                String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/MyPdf";
-
-                PDF pdf = new PDF();
-                pdf.addParagraph(text);
-                File temp = File.createTempFile(name, ".pdf", getCacheDir());
-                final File file = pdf.makeDocument(temp);
-
-                if (mUser != null) {
-                    if (file != null) {
-                        StorageReference tempFile = pdfStorage.child(file.getName());
-                        tempFile.putFile(Uri.fromFile(file)).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-
-                            }
-                        });
-                    }
-                }
-                Toast.makeText(this, "Note Saved as a PDF in " + path, Toast.LENGTH_SHORT).show();
-
-                initRecyclerView();
-            }
-
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setTitle("Storage Permission Needed");
-                alert.setMessage("We need storage permission to store the PDF on your device. Please grant storage permission.");
-                alert.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 01);
-                    }
-                });
-                alert.show();
-            } else {
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 01);
-            }
-        }
-    }
-
-    private String summarizeText(String text) {
-        final ObjectRef summary = new ObjectRef();
-        summary.element = Text2Summary.Companion.summarize(text, 0.4F);
-        //  TV.setText((CharSequence)((String)summary.element));
-//        previewText((String)summary.element);
-        return (String) summary.element;
-    }
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -529,8 +395,7 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(NotesActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.rename_dialog, null);
 
-        // declaring edit text\
-        final TextView renText = mView.findViewById(R.id.rename_text);
+        // declaring edit text
         final EditText renEdit = mView.findViewById(R.id.rename_edit);
         // setting view
         builder.setView(mView);
@@ -568,13 +433,5 @@ public class NotesActivity extends AppCompatActivity implements NavigationView.O
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(shareIntent, "Share it"));
-    }
-
-//   private void previewText(String string){
-//        textView.setText(string);
-//   }
-
-    public void uploadFile() {
-
     }
 }

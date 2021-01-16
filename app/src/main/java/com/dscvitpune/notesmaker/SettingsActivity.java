@@ -30,6 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
                     .replace(R.id.settings, new SettingsFragment())
                     .commit();
         }
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -57,8 +58,10 @@ public class SettingsActivity extends AppCompatActivity {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             FirebaseUser user = auth.getCurrentUser();
 
+            assert cloud != null;
             cloud.setEnabled(user != null);
 
+            assert localStorage != null;
             localStorage.setEnabled(preferences.getBoolean("CloudUpload", false));
 
 
@@ -68,8 +71,6 @@ public class SettingsActivity extends AppCompatActivity {
                     Log.e("CloudUPload", "" + preferences.getBoolean("CloudUpload", false));
                     switch (key) {
                         case "CloudUpload": {
-                            //localStorage.setSelectable(false);
-                            //localStorage.setSelectable(true);
                             localStorage.setEnabled(preferences.getBoolean("CloudUpload", false));
                             break;
                         }

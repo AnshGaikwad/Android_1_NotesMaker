@@ -101,7 +101,6 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewV
         public Button mSaveButton, mSummariseButton, mResetButton;
         public ImageButton mDeleteButton;
         public EditText mPreviewEditText;
-        //public LinearLayout mPreviewLinearLayout;
         public ConstraintLayout mPreviewConstraintLayout;
 
         public PreviewViewHolder(@NonNull View itemView, final OnItemClickListener listener) {

@@ -35,7 +35,6 @@ public class CloudNotes extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     CloudFileAdapter cloudFileAdapter;
     TextView cloudMessage;
-
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     FirebaseStorage storage;
@@ -81,8 +80,6 @@ public class CloudNotes extends AppCompatActivity {
 
         cloudNotes = findViewById(R.id.cloudNotes);
         linearLayoutManager = new LinearLayoutManager(this);
-
-
     }
 
     public void getFiles() {

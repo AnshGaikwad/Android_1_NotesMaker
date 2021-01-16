@@ -60,8 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     String Email = lEmailId.getText().toString().trim();
                     String Password = lPassword.getText().toString().trim();
-
-
                     if (TextUtils.isEmpty(Email)) {
                         lEmailId.setError("Email Id is mandatory");
                         return;
@@ -84,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Email isn't verified, try again after verification of Email ", Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(LoginActivity.this, "You have Logged in", Toast.LENGTH_LONG).show();
-
                                     // user will be logged in into the notes activity
                                     Intent noteIntent = new Intent(LoginActivity.this, NotesActivity.class);
                                     startActivity(noteIntent);
@@ -95,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                     });
-
                 }
             });
             ForgotPassword.setOnClickListener(new View.OnClickListener() {
