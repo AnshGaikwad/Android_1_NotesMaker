@@ -1,5 +1,6 @@
 package com.dscvitpune.notesmaker.cloud;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -123,6 +124,7 @@ class CloudFileAdapter extends RecyclerView.Adapter<CloudFileAdapter.ViewHolder>
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                 popupMenu.inflate(R.menu.cloud_file_menu);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @SuppressLint("NonConstantResourceId")
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
@@ -160,7 +162,7 @@ class CloudFileAdapter extends RecyclerView.Adapter<CloudFileAdapter.ViewHolder>
         return mFilteredList.size();
     }
 
-    private boolean deleteFile(final StorageReference storageReference) {
+    private void deleteFile(final StorageReference storageReference) {
         AlertDialog dialog = new AlertDialog.Builder(mContext)
                 .setTitle("Delete File on Cloud")
                 .setMessage("Once you delete this file it will disappear forever.\n Are you sure you want to delete?")
@@ -179,7 +181,6 @@ class CloudFileAdapter extends RecyclerView.Adapter<CloudFileAdapter.ViewHolder>
                 .setNeutralButton("Cancel", null)
                 .create();
         dialog.show();
-        return false;
     }
 
     @Override
