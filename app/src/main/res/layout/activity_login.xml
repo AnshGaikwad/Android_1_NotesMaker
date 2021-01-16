@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:textStyle="bold"
-    tools:context=".LoginActivity"
+    tools:context="com.dscvitpune.notesmaker.LoginActivity"
     android:background="@drawable/main_background">
 
     <androidx.cardview.widget.CardView

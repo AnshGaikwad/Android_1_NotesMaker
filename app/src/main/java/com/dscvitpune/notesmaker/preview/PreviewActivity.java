@@ -1,4 +1,4 @@
-package com.example.notesmaker.preview;
+package com.dscvitpune.notesmaker.preview;
 
 import android.Manifest;
 import android.app.Activity;
@@ -26,9 +26,9 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notesmaker.NotesActivity;
+import com.dscvitpune.notesmaker.NotesActivity;
 import com.example.notesmaker.R;
-import com.example.notesmaker.pdf.PDF;
+import com.dscvitpune.notesmaker.pdf.PDF;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -153,6 +153,7 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
     private void saveToPDF(String text, String name) {
+
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
             if (text.isEmpty()) {

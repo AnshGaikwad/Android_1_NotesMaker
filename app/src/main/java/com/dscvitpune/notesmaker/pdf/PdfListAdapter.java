@@ -1,4 +1,4 @@
-package com.example.notesmaker.pdf;
+package com.dscvitpune.notesmaker.pdf;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notesmaker.NotesActivity;
+import com.dscvitpune.notesmaker.NotesActivity;
 import com.example.notesmaker.R;
 
 import java.io.File;

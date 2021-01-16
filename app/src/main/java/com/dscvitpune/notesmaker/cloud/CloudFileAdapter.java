@@ -1,4 +1,4 @@
-package com.example.notesmaker.cloud;
+package com.dscvitpune.notesmaker.cloud;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,7 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notesmaker.pdf.PdfActivity;
+import com.dscvitpune.notesmaker.pdf.PdfActivity;
 import com.example.notesmaker.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;

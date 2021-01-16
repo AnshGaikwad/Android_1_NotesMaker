@@ -1,4 +1,4 @@
-package com.example.notesmaker.cloud;
+package com.dscvitpune.notesmaker.cloud;
 
 import android.content.Intent;
 import android.net.Uri;

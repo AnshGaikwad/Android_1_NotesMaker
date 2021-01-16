@@ -1,4 +1,4 @@
-package com.example.notesmaker.preview;
+package com.dscvitpune.notesmaker.preview;
 
 import android.text.Editable;
 import android.text.TextWatcher;

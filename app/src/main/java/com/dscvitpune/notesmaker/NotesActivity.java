@@ -1,4 +1,4 @@
-package com.example.notesmaker;
+package com.dscvitpune.notesmaker;
 
 import android.Manifest;
 import android.app.Activity;
@@ -37,11 +37,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notesmaker.cloud.CloudNotes;
-import com.example.notesmaker.pdf.PDF;
-import com.example.notesmaker.pdf.PdfActivity;
-import com.example.notesmaker.pdf.PdfListAdapter;
-import com.example.notesmaker.preview.PreviewActivity;
+import com.dscvitpune.notesmaker.cloud.CloudNotes;
+import com.dscvitpune.notesmaker.pdf.PdfActivity;
+import com.dscvitpune.notesmaker.pdf.PdfListAdapter;
+import com.dscvitpune.notesmaker.preview.PreviewActivity;
+import com.example.notesmaker.R;
+import com.dscvitpune.notesmaker.pdf.PDF;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

@@ -1,4 +1,4 @@
-package com.example.notesmaker.preview;
+package com.dscvitpune.notesmaker.preview;
 
 public class PreviewData {
     private String mPreviewText;

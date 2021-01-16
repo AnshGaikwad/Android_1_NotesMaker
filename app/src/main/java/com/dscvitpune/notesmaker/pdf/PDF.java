@@ -1,4 +1,4 @@
-package com.example.notesmaker.pdf;
+package com.dscvitpune.notesmaker.pdf;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;

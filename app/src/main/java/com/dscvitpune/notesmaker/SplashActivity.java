@@ -1,10 +1,12 @@
-package com.example.notesmaker;
+package com.dscvitpune.notesmaker;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.notesmaker.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
